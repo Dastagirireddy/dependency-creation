@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="bar-wrap" style="transform: translate(30px, 100px);">
+        <div class="bar parent">
+          <div class="percentage"></div>
+        </div>
+      </div>
+      <div class="bar-wrap" style="transform: translate(30px, 150px);">
+        <div class="bar leaf">
+          <div class="percentage"></div>
+        </div>
+      </div>
+      <div class="bar-wrap" style="transform: translate(30px, 200px);">
+        <div class="bar milestone"></div>
+      </div>
+    </div>
+
+    <div class="point point1" id="point1"></div>
+    <div class="point point2" id="point2"></div>
+    <div class="point point3" id="point3"></div>
+    <svg viewBox="0 0 500 500" id="svg">
+      <line id="line1"></line>
+    </svg>
+  </body>
+  <script>
+    let bars = document.querySelectorAll(".point");
+
+    const getSvgPoint = (element, x, y) => {
+      const pt = element.createSVGPoint();
+
+      pt.x = x;
+      pt.y = y;
+
+      return pt.matrixTransform(element.getScreenCTM().inverse());
+    };
+
+    const resetPoints = line => {
+      line.setAttribute("x1", 0);
+      line.setAttribute("y1", 0);
+      line.setAttribute("x2", 0);
+      line.setAttribute("y2", 0);
+    };
+
+    bars.forEach(bar => {
+      bar.addEventListener("mouseover", ev => {
+        bar.addEventListener("mousedown", ev => {
+          var offset = bar.getBoundingClientRect();
+          var line = document.getElementById("line1");
+          var svg = document.getElementById("svg");
+
+          var point1 = getSvgPoint(
+            svg,
+            offset.left + offset.width / 2,
+            offset.top + offset.height / 2
+          );
+
+          function resize(e) {
+            var point2 = getSvgPoint(svg, e.pageX, e.pageY);
+
+            line.setAttribute("x1", point1.x);
+            line.setAttribute("y1", point1.y);
+            line.setAttribute("x2", point2.x);
+            line.setAttribute("y2", point2.y);
+          }
+
+          function stopResize(e) {
+            resetPoints(line);
+            alert(`
+              SOURCE: ${ev.target.id}
+              TARGET: ${e.target.id}
+            `);
+            window.removeEventListener("mousemove", resize);
+            window.removeEventListener("mouseup", stopResize);
+          }
+
+          window.addEventListener("mousemove", resize);
+          window.addEventListener("mouseup", stopResize);
+        });
+      });
+    });
+  </script>
+</html>

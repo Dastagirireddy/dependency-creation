@@ -1,0 +1,165 @@
+body {
+  font-family: sans-serif;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.bar-wrap {
+  position: absolute;
+  height: 25px;
+  width: 300px;
+}
+
+.bar-terminal {
+  width: 1px;
+  border: 1px dashed orange;
+  position: absolute;
+  left: -13px;
+  top: 50%;
+  z-index: 1;
+  overflow: visible;
+}
+
+.bar-terminal::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 8px;
+  height: 8px;
+  clear: both;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+.bar.parent {
+  border-radius: 2px 2px 0 0;
+  background-color: #83b5fe;
+  height: 17px;
+}
+
+.bar.parent .percentage {
+  background-color: #3183fe;
+}
+
+.bar.leaf {
+  background-color: #8ee997;
+}
+
+.bar.leaf .percentage {
+  background-color: #34d844;
+}
+
+.bar.milestone {
+  width: 18px;
+  height: 18px;
+}
+
+.bar.milestone {
+  transform: rotate(45deg);
+  background-color: #3183fe;
+  margin-top: 7px;
+}
+
+.bar {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+  border-radius: 2px;
+}
+
+.percentage {
+  position: absolute;
+  height: 100%;
+  width: 40%;
+}
+
+.parent::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid #3183fe;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #3183fe;
+  border-bottom: 4px solid transparent;
+  clear: both;
+}
+
+.parent::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid #3183fe;
+  border-top: 4px solid #3183fe;
+  border-bottom: 4px solid transparent;
+  clear: both;
+}
+
+.point {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  background-color: #83b5fe;
+}
+
+.point1 {
+  top: 35%;
+  left: 0;
+}
+
+.point2 {
+  top: 40%;
+  left: 30%;
+}
+
+.point3 {
+  top: 60%;
+  left: 20%;
+}
+
+.line {
+  position: absolute;
+  border-left: 2px dotted orange;
+  width: 0px;
+  padding: 0;
+  margin: 0;
+}
+
+svg {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#line1 {
+  stroke: orange;
+  stroke-width: 1;
+  stroke-dasharray: 3, 3;
+}
